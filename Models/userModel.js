@@ -62,7 +62,24 @@ class userModel {
 		const[ result,fields]= await promisePool.query(sql);
 		return result
 	}
+	getDetailsById = async(id)=>{
+		let sql = `select chat.content from chat where Receiver ='${id}'`;
+		const[ result,fields]= await promisePool.query(sql);
+		return result
+	}
+	fetchMsgById = async(id)=>{
+		let sql = `select chat.content from chat where sender ='${id}'`;
+		const[ result,fields]= await promisePool.query(sql);
+		return result
+	}
+
+	fetchId= async (name)=>{
+		let sql =`select id from user_Registration where name ='${name}'`;
+		const[result,fields]=await promisePool.query(sql);
+		return result
+	}
 }
 
 
  module.exports=new userModel;
+

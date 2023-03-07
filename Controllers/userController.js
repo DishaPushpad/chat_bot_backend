@@ -110,7 +110,49 @@ if(getAllDetails){
     }
   }
 
+  const getUserMsg = async function(req, res){
+    try{
 
+      let id = req.params.id;
+      const getDetailsById = await userModel.getDetailsById(id)
+      if(getDetailsById.length>0){
+        return res.status(200).send({status:true , msg:"successfull" , data:getDetailsById})
+      }else{ 
+        return res.status(404).send({status:false , msg :"no data found by this id"})
+      }
+    }catch(err){
+        return res.status(500).send({status:false , error:err.message})
+      }
+    }
+  
+
+     const fetchMsg= async function (req, res){
+      try{
+        let id = req.params.id;
+        const fetchMsgById = await userModel.fetchMsgById(id)
+      if(fetchMsgById.length>0){
+        return res.status(200).send({status:true , msg:"successfull" , data:fetchMsgById})
+      }else{ 
+        return res.status(404).send({status:false , msg :"no data found by this id"})
+      }
+      }catch(err){
+        return res.status(500).send({status:false , error:err.message})
+      }
+     }
+
+     const getIdByName = async function (req,res){
+      try{
+let name = req.params.name;
+const fetchId=await userModel.fetchId(name)
+if(fetchId){
+  return res.status(200).send({status:true , msg :"Successfull" , data:fetchId})
+}else{
+  return res.status(400).send({status:false , msg :"Something went wrong"})
+}
+      }catch(err){
+        return res.status(500).send({status:false , error:err.message})
+      }
+     }
 
 
 
@@ -122,3 +164,7 @@ module.exports.userLogin = userLogin;
 module.exports.chat = chat;
 module.exports.getAllDetails = getAllDetails;
 module.exports.getUser = getUser;
+module.exports.getUserMsg = getUserMsg;
+module.exports.fetchMsg = fetchMsg;
+module.exports.getIdByName = getIdByName;
+

@@ -18,4 +18,7 @@ router.post("/loginUser",loginUserSchema,userController.userLogin.bind())
 router.post('/chat',userController.chat.bind());
 router.get('/getAllDetails',userController.getAllDetails.bind())
 router.get('/getUser',userController.getUser.bind())
+router.get("/getUserMsg/:id",userController.getUserMsg.bind());
+router.get("/fetchMsg/:id", userController.fetchMsg.bind());
+router.get('/getIdByName/:name',userController.getIdByName.bind());
 module.exports.routes = router;
