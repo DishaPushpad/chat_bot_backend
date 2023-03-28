@@ -154,7 +154,21 @@ if(fetchId){
       }
      }
 
+const getMsgSentDetailsById = async (req,res)=>{
+  try{
+    let senderId = req.body.senderId
+    let receiverId = req.body.receiverId
 
+const getDetailsSent = await userModel.getDetailsSent(senderId,receiverId)
+if(getDetailsSent.length>0){
+  return res.status(200).send({status: true, data:getDetailsSent})
+}else{
+  return res.status(200).send({status: false , msg :"No Data Found"})
+}
+
+
+  }catch(err){return res.status(500).send({status: false , error:err.message})}
+}
 
 
 
@@ -167,4 +181,7 @@ module.exports.getUser = getUser;
 module.exports.getUserMsg = getUserMsg;
 module.exports.fetchMsg = fetchMsg;
 module.exports.getIdByName = getIdByName;
+module.exports.getMsgSentDetailsById = getMsgSentDetailsById;
 
+
+// insert into product (pin,pin_spaces	) values ("QHRGMZ43KHWISF4","QHRGM Z43KH WISF4"),("S6HCFUWQMPS7HV6","S6HCF UWQMP S7HV6 ")

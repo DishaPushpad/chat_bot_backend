@@ -20,5 +20,7 @@ router.get('/getAllDetails',userController.getAllDetails.bind())
 router.get('/getUser',userController.getUser.bind())
 router.get("/getUserMsg/:id",userController.getUserMsg.bind());
 router.get("/fetchMsg/:id", userController.fetchMsg.bind());
+router.post("/fetchSentmsg",userController.getMsgSentDetailsById.bind());
+
 router.get('/getIdByName/:name',userController.getIdByName.bind());
 module.exports.routes = router;

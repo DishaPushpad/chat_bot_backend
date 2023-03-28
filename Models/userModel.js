@@ -32,6 +32,7 @@ class userModel {
 	chatRegister= async (data)=>{
 		let sql =`INSERT INTO chat (sender,Receiver,content) values ('${data.sender}','${data.receiver}','${data.content}')`
 		const[result,fields] = await promisePool.query(sql);
+		console.log(result)
 		return result;
 	}
 	
@@ -76,6 +77,12 @@ class userModel {
 	fetchId= async (name)=>{
 		let sql =`select id from user_Registration where name ='${name}'`;
 		const[result,fields]=await promisePool.query(sql);
+		return result
+	}
+
+	getDetailsSent = async(senderId,receiverId)=>{
+		let sql = `select chat.content from chat where sender='${senderId}' AND Receiver ='${receiverId}'`;
+		const[result, fields]= await promisePool.query(sql);
 		return result
 	}
 }
