@@ -15,8 +15,8 @@ const promisePool = pool.promise();
 
 class userModel {
 
-    registration= async(data)=>{
-        let sql = `INSERT INTO user_Registration(name,email,password,city) VALUES ('${data.name}','${data.email}','${data.password}','${data.city}')`
+    registration= async(data,hash)=>{
+        let sql = `INSERT INTO user_Registration(name,email,password,city) VALUES ('${data.name}','${data.email}','${hash}','${data.city}')`
         const [result, fields] = await promisePool.query(sql);
 		return result;
 
@@ -80,9 +80,14 @@ class userModel {
 		return result
 	}
 
-	getDetailsSent = async(senderId,receiverId)=>{
-		let sql = `select chat.content from chat where sender='${senderId}' AND Receiver ='${receiverId}'`;
+	getDetailsSent = async(senderId, receiverId)=>{
+		let sql = `select chat.content ,chat.sender, chat.Receiver, chat.Created_At,user_Registration.name AS receiver  from chat left JOIN user_Registration on chat.Receiver=user_Registration.id where (chat.sender='${senderId}' OR chat.Receiver ='${senderId}') AND (chat.sender='${receiverId}' OR chat.Receiver ='${receiverId}')`;
 		const[result, fields]= await promisePool.query(sql);
+		return result
+	}
+	letCheckDuplicateEmails = async(email)=>{
+		let sql = `select * from user_Registration where email='${email}'`;
+		const[result, fields] = await promisePool.query(sql);
 		return result
 	}
 }
